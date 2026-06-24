@@ -1,0 +1,5 @@
+# Fill apple_id with the account-holder Apple ID for team W7Q885Q59C before running lanes.
+app_identifier("com.shimondeitel.footnote")
+apple_id(ENV["FOOTNOTE_APPLE_ID"] || "CHANGE_ME@example.com")
+team_id("W7Q885Q59C")
+itc_team_id("W7Q885Q59C")

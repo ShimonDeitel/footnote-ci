@@ -1,0 +1,53 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "FOOTNOTE_STOREKIT_CONFIG",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "FOOTNOTE_PRO_GROUP",
+      "localizations" : [],
+      "name" : "Footnote Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "footnote_pro_monthly_id",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited AI structuring on every recording, Ask across your whole archive, the Commitments rollup, bulk export and tone control.",
+              "displayName" : "Footnote Pro",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "footnote_pro_monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Footnote Pro Monthly",
+          "subscriptionGroupID" : "FOOTNOTE_PRO_GROUP",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

@@ -1,0 +1,66 @@
+default_platform(:ios)
+
+# Set these env vars for an unattended run with an App Store Connect API key:
+#   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH (path to the .p8)
+def asc_key
+  app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: ENV["ASC_KEY_PATH"],
+    in_house: false
+  )
+end
+
+platform :ios do
+  before_all do
+    sh("cd .. && xcodegen generate") if File.exist?("../project.yml")
+  end
+
+  desc "Create the app record + the Ease Pro IAP in App Store Connect"
+  lane :bootstrap do
+    produce(
+      app_name: "Ease — Breathe & Calm",
+      app_identifier: "com.easeapp.ease",
+      language: "en-US",
+      app_version: "1.0",
+      skip_itc: false,
+      skip_devcenter: false
+    )
+  end
+
+  desc "Build + upload to TestFlight"
+  lane :beta do
+    key = asc_key
+    build_app(
+      project: "Ease.xcodeproj",
+      scheme: "Ease",
+      configuration: "Release",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates"
+    )
+    upload_to_testflight(api_key: key, skip_waiting_for_build_processing: true)
+  end
+
+  desc "Build + submit to the App Store (auto-release on approval)"
+  lane :release do
+    key = asc_key
+    build_app(
+      project: "Ease.xcodeproj",
+      scheme: "Ease",
+      configuration: "Release",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates"
+    )
+    deliver(
+      api_key: key,
+      submit_for_review: true,
+      automatic_release: true,
+      force: true,
+      skip_screenshots: false,
+      screenshots_path: "./fastlane/screenshots",
+      metadata_path: "./fastlane/metadata",
+      precheck_include_in_app_purchases: true,
+      submission_information: { add_id_info_uses_idfa: false }
+    )
+  end
+end
