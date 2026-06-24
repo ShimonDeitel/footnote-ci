@@ -2,6 +2,8 @@ name: Release to App Store
 
 on:
   workflow_dispatch:
+  push:
+    branches: [master]
 
 jobs:
   build:
